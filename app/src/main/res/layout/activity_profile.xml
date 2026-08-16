@@ -396,6 +396,38 @@
                     android:layout_height="20dp"
                     />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rowLogout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="5dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/favorite_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+                    app:tint="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/btnLogout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="Logout"
+                    android:textColor="#0F172A"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    />
+            </LinearLayout>
 
             <View android:layout_width="match_parent" android:layout_height="1dp"
                 android:layout_marginStart="56dp" android:background="#F1F5F9" />

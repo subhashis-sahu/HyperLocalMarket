@@ -180,10 +180,6 @@ public class RegisterActivity extends AppCompatActivity {
                                         String jwt =
                                                 response.body().getToken();
 
-                                        // =========================
-                                        // SAVE JWT
-                                        // =========================
-
                                         SharedPreferences preferences =
                                                 getSharedPreferences(
                                                         "auth",

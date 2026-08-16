@@ -3,6 +3,7 @@ package com.example.hyperlocalmarket;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -45,6 +46,7 @@ public class MainScreen extends AppCompatActivity {
         spinner = findViewById(R.id.spinnerLocation);
         imageView=findViewById(R.id.imgAvatar);
 
+
         cars=findViewById(R.id.cars);
         bikes=findViewById(R.id.bikes);
         furniture=findViewById(R.id.furniture);
@@ -54,6 +56,9 @@ public class MainScreen extends AppCompatActivity {
         bikes.setOnClickListener(v->selectItem(bikes));
         realEstate.setOnClickListener(v->selectItem(realEstate));
         furniture.setOnClickListener(v->selectItem(furniture));
+
+        SharedPreferences sharedPreferences=getSharedPreferences("jwt",MODE_PRIVATE);
+        String jwt=sharedPreferences.getString("jwt",null);
 
         cardTrending1=findViewById(R.id.cardTrending1);
         cardTrending1.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +72,7 @@ public class MainScreen extends AppCompatActivity {
         imageView.setOnClickListener(v->
                 {
                     Intent intent = new Intent(MainScreen.this,activity_profile.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                 });
 
