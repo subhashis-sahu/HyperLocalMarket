@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ProfileFragment"
+    android:layout_gravity="center"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+
+        android:gravity="top">
+        <!--Profile Details-->
+        <LinearLayout
+            android:padding="10dp"
+
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+
+            android:elevation="1dp"
+
+            >
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="112dp"
+                android:layout_height="112dp"
+                android:src="@drawable/user"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <TextView
+
+                    android:gravity="center"
+                    android:layout_gravity="center"
+
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:hint="Profile Name"
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"/>
+                <ImageView
+
+                    android:layout_marginStart="5dp"
+
+
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/edit_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+                    app:tint="@color/text_primary"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <!-- header -->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/card_white_rounded"
+            android:elevation="2dp"
+
+            android:orientation="vertical">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+
+                >
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/location"
+                    app:tint="@color/text_primary"
+                     />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="Saved Address"
+
+                    android:textColor="#0F172A"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:src="@drawable/arrow_forward_ios_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    />
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="56dp"
+                android:background="#C7C7C7" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+
+                >
+                <ImageView
+                    app:tint="@color/text_primary"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/orders_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="Order History"
+
+                    android:textColor="#0F172A"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:src="@drawable/arrow_forward_ios_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    />
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="56dp"
+                android:background="#C7C7C7" />
+            <!--Contact Us -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+
+                >
+                <ImageView
+                    app:tint="@color/text_primary"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/mail_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="Contact Us"
+
+                    android:textColor="#0F172A"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:src="@drawable/arrow_forward_ios_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/feed_gradient"
+            android:elevation="2dp"
+
+            android:orientation="vertical">
+            <!-- Refer And Earn -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+
+                >
+                <ImageView
+                    app:tint="@color/text_primary"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/rewarded_ads_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="Refer And Earn"
+                    android:textStyle="bold"
+
+                    android:textColor="#0F172A"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:src="@drawable/arrow_forward_ios_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+                    app:tint="@color/text_primary"
+
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
