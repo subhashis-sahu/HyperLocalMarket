@@ -1,135 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:layout_marginBottom="56dp"
 
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Item"
-            android:textColor="@color/primary"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Sell or rent something to people nearby"
-            android:textColor="@color/secondary"
-            android:textSize="14sp" />
-
-        <!-- Category -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="Category"
-            android:textColor="@color/text_primary"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:textColorHint="#7A7A7A"
-
-            android:background="@drawable/dev_box"
-            android:id="@+id/spinnerCategory"
+        android:orientation="vertical">
+        <LinearLayout
+            android:background="@color/background"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="8dp" />
+            android:layout_height="56dp"
+            android:padding="5dp"
 
-        <!-- Item Name -->
 
-        <TextView
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            android:layout_width="wrap_content"
+            <ImageView
+                android:contentDescription="@string/back_button"
+                android:id="@+id/btnBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/arrow_back_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+                app:tint="@color/text_primary" />
+
+            <TextView
+                android:textColor="@color/text_primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="@string/add_item"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Item Name"
-            android:textColor="@color/text_primary"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/etItemName"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:background="@drawable/dev_box"
-            android:textColorHint="#7A7A7A"
-            android:layout_marginTop="8dp"
-            android:hint="Enter item name"
-            android:inputType="text"
-            android:padding="12dp" />
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Description"
-            android:textColor="@color/text_primary"
-            android:textSize="15sp"
-            android:textStyle="bold" />
 
-        <EditText
-            android:textColorHint="#7A7A7A"
 
-            android:background="@drawable/dev_box"
-            android:id="@+id/etDescription"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginTop="8dp"
-            android:gravity="top"
-            android:hint="Describe your item..."
-            android:inputType="textMultiLine"
-            android:padding="12dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Sell or rent something to people nearby"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-black"
+                android:lineSpacingExtra="2dp"/>
 
-        <!-- Price -->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Price"
-            android:textColor="@color/text_primary"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            <!-- Category -->
 
-        <EditText
-            android:textColorHint="#7A7A7A"
-            android:background="@drawable/dev_box"
-            android:id="@+id/etPrice"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="8dp"
-            android:hint="₹ Enter price"
-            android:inputType="numberDecimal"
-            android:padding="12dp" />
+            <TextView
+                android:textColor="@color/text_primary"
 
-        <Button
-            android:id="@+id/btnPostItem"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/button_primary"
-            android:text="Post Item"
-            android:elevation="5dp"
-            android:textAllCaps="false"
-            android:backgroundTint="@null"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Category"
+                android:textStyle="bold" />
+
+
+            <Spinner
+
+
+
+                android:elevation="2dp"
+                android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+
+
+                android:layout_marginTop="8dp"
+                android:background="@drawable/dev_box"
+                android:textColor="@color/spinner_text"
+                android:textColorHint="#7A7A7A" />
+
+            <LinearLayout
+                android:id="@+id/layoutAttributes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Product Images"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Add at least 1 photo. First photo is the main image"
+                android:textColor="@color/text_primary"
+                android:textSize="8sp"
+                android:textStyle="normal" />
+
+            <Button
+                android:id="@+id/btnSelectImages"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:text="Add Photos"
+                android:textAllCaps="false" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerProductImages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- Item Name -->
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Item Name"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <EditText
+
+
+                android:elevation="2dp"
+                android:id="@+id/etItemName"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/dev_box"
+                android:hint="Enter item name"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColorHint="#7A7A7A" />
+
+            <!--Product Condition -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Product Condition"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+
+                android:textStyle="bold" />
+
+
+            <Spinner
+
+
+                android:elevation="2dp"
+                android:id="@+id/spinnerCondition"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+
+                android:layout_marginTop="8dp"
+                android:background="@drawable/dev_box"
+                android:textColor="@color/spinner_text"
+                android:textColorHint="#7A7A7A"
+
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Description"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <EditText
+
+
+                android:elevation="2dp"
+                android:id="@+id/etDescription"
+
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/dev_box"
+                android:gravity="top"
+                android:hint="Describe your item..."
+                android:inputType="textMultiLine"
+                android:padding="12dp"
+                android:textColorHint="#7A7A7A" />
+
+            <!-- Price -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Price"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:elevation="2dp"
+                android:id="@+id/etPrice"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/dev_box"
+                android:hint="₹ Enter price"
+                android:inputType="numberDecimal"
+                android:padding="12dp"
+                android:textColorHint="#7A7A7A" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Listing Type"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <EditText
+
+
+                android:elevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+
+                android:background="@drawable/dev_box"
+                android:editable="false"
+                android:hint="Sell"
+                android:inputType="none"
+                android:padding="12dp"
+                android:textColorHint="#7A7A7A" />
+
+
+            <Button
+                android:id="@+id/btnPostItem"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/button_primary"
+                android:backgroundTint="@null"
+                android:elevation="5dp"
+                android:text="Post Item"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
+
 
 </ScrollView>

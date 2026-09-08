@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.hyperlocalmarket.api.ApiService;
 import com.example.hyperlocalmarket.api.RetrofitClient;
+import com.example.hyperlocalmarket.model.Profile;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,23 +54,22 @@ public class activity_profile extends AppCompatActivity {
 
         ApiService apiService= RetrofitClient.getApiService();
 
-        apiService.getProfile("Bearer "+jwt).enqueue(
-                new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if (response!=null){
-                            String phNumber=response.body();
-                            tvUserPhone.setText(phNumber);
-                        }
-                    }
+        apiService.getProfile("Bearer "+jwt).enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
+                if (response.isSuccessful()){
+                    Profile pf=response.body();
 
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Log.e("PROFILE_API", "Error: " + t.getMessage());
-
-                    }
+                    tvUserPhone.setText(pf.getPhNumber()+"");
                 }
-        );
+            }
+
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+                Toast.makeText(activity_profile.this, "Profile_Api"+t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

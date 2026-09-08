@@ -13,14 +13,19 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,14 +36,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hyperlocalmarket.adapter.CategoryProductAdaptor;
 import com.example.hyperlocalmarket.adapter.ProductAdapter;
 import com.example.hyperlocalmarket.api.ApiService;
 import com.example.hyperlocalmarket.api.RetrofitClient;
+import com.example.hyperlocalmarket.model.CategoryAttribute;
 import com.example.hyperlocalmarket.model.Product;
+import com.example.hyperlocalmarket.model.Profile;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -53,28 +63,32 @@ public class HomeFragment extends Fragment {
     boolean isHeaderHidden = false;
 
     LinearLayout layHeader;
+    TextView sellAll,tvCategoryTitle,tvGreeting;
 
     Spinner spinner;
     Button btnPostItem;
+    EditText etSearch;
 
     LinearLayout bikes, realEstate, cars, furniture, cardTrending1;
 
     ImageView imageView;
 
     ScrollView mainContent;
-    View bottomNav;
+    View bottomNav,productDetails;
 
-    RecyclerView rvProducts;
+    RecyclerView rvProducts,recyclerProducts;
 
-    List<Product> productsList;
+    List<String> categoryList= Arrays.asList("Real Estate","Furniture","Cars","Bikes");
+
+    ArrayList<Product> productsList,categoryWiseProduct;
     ProductAdapter productAdapter;
+    //for Category
+    CategoryProductAdaptor categoryProductAdaptor;
 
     FusedLocationProviderClient fusedLocationProviderClient;
 
 
-    public HomeFragment() {
-        // Required empty constructor
-    }
+
 
 
     @Nullable
@@ -100,10 +114,30 @@ public class HomeFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+        etSearch=view.findViewById(R.id.etSearch);
+
+        categoryWiseProduct=new ArrayList<>();
+
+
+
+        //Category Title
+        tvCategoryTitle=view.findViewById(R.id.tvCategoryTitle);
+
+
 
         rvProducts=view.findViewById(R.id.rvProducts);
+
+        //for Category
+        recyclerProducts=view.findViewById(R.id.recyclerProducts);
+
+
+
         productsList=new ArrayList<>();
         productAdapter=new ProductAdapter(productsList);
+
+
+        productDetails=view.findViewById(R.id.productDetails);
+        productDetails.setVisibility(View.GONE);
 
         rvProducts.setLayoutManager(new GridLayoutManager(requireContext(),2));
         rvProducts.setAdapter(productAdapter);
@@ -119,6 +153,7 @@ public class HomeFragment extends Fragment {
         spinner = view.findViewById(R.id.spinnerLocation);
 
         imageView = view.findViewById(R.id.imgAvatar);
+        sellAll=view.findViewById(R.id.sellAll);
 
         cars = view.findViewById(R.id.cars);
         bikes = view.findViewById(R.id.bikes);
@@ -129,6 +164,80 @@ public class HomeFragment extends Fragment {
         btnPostItem =view.findViewById(R.id.btnPostItem);
 
         bottomNav = requireActivity().findViewById(R.id.bottomNavigationView);
+        realEstate.setTag(1L);
+        furniture.setTag(2L);
+        cars.setTag(3L);
+        bikes.setTag(4L);
+
+        categoryProductAdaptor=new CategoryProductAdaptor(categoryWiseProduct);
+        recyclerProducts.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerProducts.setAdapter(categoryProductAdaptor);
+        tvGreeting=view.findViewById(R.id.tvGreeting);
+
+
+
+
+
+
+
+
+
+
+        SharedPreferences sharedPreferences=view.getContext().getSharedPreferences("auth",MODE_PRIVATE);
+        String token = sharedPreferences.getString("jwt",null);
+        ApiService apiService=RetrofitClient.getApiService();
+
+        apiService.getProfile("Bearer "+token).enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
+                if (response.isSuccessful()){
+                    Profile pf=response.body();
+
+                    if (pf.getName()!=null){
+                        String name=pf.getName();
+                        tvGreeting.setText("Hello, "+name+" \uD83D\uDC4B");
+                    } else {
+                        tvGreeting.setText("Hello, "+pf.getPhNumber()+" \uD83D\uDC4B");
+
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+
+            }
+        });
+
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i== EditorInfo.IME_ACTION_SEARCH){
+                    String prompt=etSearch.getText().toString().trim();
+                    if (!prompt.isEmpty()){
+                        searchProducts(prompt);
+                    }
+                    return true;
+
+                }
+                return false;
+            }
+        });
+
+
+
+
+
+
+        sellAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new CategoryFragment()).addToBackStack(null).commit();
+
+            }
+        });
 
 
 
@@ -143,6 +252,8 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------
 
         cars.setOnClickListener(v ->
+
+
                 selectItem(cars)
         );
 
@@ -170,6 +281,8 @@ public class HomeFragment extends Fragment {
 
             startActivity(intent);
         });
+
+
 
 
         // --------------------------------------------------
@@ -262,18 +375,42 @@ public class HomeFragment extends Fragment {
                 furniture,
                 realEstate
         };
+        Bundle bundle=new Bundle();
+
 
         for (LinearLayout view : categories) {
+
 
             view.setBackgroundResource(
                     R.drawable.category_chip_default
             );
+
         }
+        TextView textView=(TextView)select.getChildAt(1);
+        String text=textView.getText().toString();
+        tvCategoryTitle.setText(text);
+        ApiService apiService=RetrofitClient.getApiService();
+        Long categoryId = (Long) select.getTag();
+
+        //for category
+
+
+
+
+
+        if (productDetails.getVisibility()==View.GONE){
+            productDetails.setVisibility(View.VISIBLE);
+
+        }
+
 
         select.setBackgroundResource(
                 R.drawable.category_chip_selected
         );
+        getClicked(apiService,categoryId);
     }
+
+
 
 
     // ======================================================
@@ -563,4 +700,38 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    void getClicked(ApiService apiService,Long idx){
+        apiService.getProductsByCategory(idx).enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful() && response.body()!=null){
+                    categoryWiseProduct.clear();
+                    categoryWiseProduct.addAll(response.body());
+                    categoryProductAdaptor.notifyDataSetChanged();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(requireContext(), "Error"+t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+    void searchProducts(String prompt){
+        SearchFragment searchFragment=new SearchFragment();
+
+
+                    Bundle bundle=new Bundle();
+                    bundle.putString("prompt",prompt);
+                    searchFragment.setArguments(bundle);
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.fragmentContainer,searchFragment)
+                            .addToBackStack(null).commit();
+                }
+
 }

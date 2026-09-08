@@ -2,4 +2,6 @@
     <string name="app_name">HyperLocalMarket</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back_button">simple back button</string>
+    <string name="add_item">Add Item</string>
 </resources>

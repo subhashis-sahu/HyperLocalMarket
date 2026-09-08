@@ -8,7 +8,7 @@
 
         <item name="android:colorAccent">@color/accent</item>
 
-        <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowBackground">@color/white</item>
 
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
@@ -20,5 +20,7 @@
 
     <style name="Theme.HyperLocalMarket"
         parent="Base.Theme.HyperLocalMarket" />
+    <color name="spinner_text">#000000</color>
+    <color name="spinner_background">#FFFFFF</color>
 
 </resources>

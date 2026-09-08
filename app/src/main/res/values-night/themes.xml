@@ -10,14 +10,17 @@
         <item name="android:colorAccent">@color/accent</item>
 
         <!-- Dark mode colors -->
-        <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowBackground">@color/white</item>
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
+
 
         <!-- White icons/text in system bars -->
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
 
     </style>
+    <color name="spinner_text">#000000</color>
+    <color name="spinner_background">#FFFFFF</color>
 
 </resources>

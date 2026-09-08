@@ -35,15 +35,15 @@ public class items_screen extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        int[] images = {
-                R.drawable.sample_product,
-                R.drawable.sample_product,
-                R.drawable.sample_product
-        };
-
-        ProductImageAdapter adapter =
-                new ProductImageAdapter(images);
-
-        recyclerView.setAdapter(adapter);
+//        int[] images = {
+//                R.drawable.sample_product,
+//                R.drawable.sample_product,
+//                R.drawable.sample_product
+//        };
+//
+//        ProductImageAdapter adapter =
+//                new ProductImageAdapter(images);
+//
+//        recyclerView.setAdapter(adapter);
     }
 }

@@ -3,10 +3,26 @@ package com.example.hyperlocalmarket;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.example.hyperlocalmarket.adapter.ProductAdapter;
+import com.example.hyperlocalmarket.api.ApiService;
+import com.example.hyperlocalmarket.api.RetrofitClient;
+import com.example.hyperlocalmarket.model.Product;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +30,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class CategoryFragment extends Fragment {
+
+    private List<LinearLayout> categoryLayouts = new ArrayList<>();
+    RecyclerView rvCategoriesWise;
+
+    List<Product> products;
+
+    ProductAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +81,73 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        View view=inflater.inflate(R.layout.fragment_category, container, false);
+        categoryLayouts.add(view.findViewById(R.id.realEstate));
+        categoryLayouts.add(view.findViewById(R.id.furniture));
+        categoryLayouts.add(view.findViewById(R.id.cars));
+        categoryLayouts.add(view.findViewById(R.id.bikes));
+        categoryLayouts.add(view.findViewById(R.id.electronics));
+        categoryLayouts.add(view.findViewById(R.id.books));
+        categoryLayouts.add(view.findViewById(R.id.computers));
+        categoryLayouts.add(view.findViewById(R.id.gaming));
+        categoryLayouts.add(view.findViewById(R.id.appliances));
+        categoryLayouts.add(view.findViewById(R.id.sports));
+        categoryLayouts.add(view.findViewById(R.id.others));
+
+        rvCategoriesWise=view.findViewById(R.id.rvCategoriesWise);
+
+        products=new ArrayList<>();
+
+        adapter=new ProductAdapter(products);
+
+        rvCategoriesWise.setLayoutManager(
+                new GridLayoutManager(requireContext(), 2)
+        );
+
+        rvCategoriesWise.setAdapter(adapter);
+
+        ApiService apiService = RetrofitClient.getApiService();
+
+        getClicked(0, categoryLayouts, apiService);
+        getClicked(1, categoryLayouts, apiService);
+        getClicked(2, categoryLayouts, apiService);
+
+        return view;
+
+    }
+
+    void getClicked(
+            int idx,
+            List<LinearLayout> categoriesList,
+            ApiService apiService) {
+
+        categoriesList.get(idx).setOnClickListener(v -> {
+
+            apiService.getProductsByCategory((long) idx + 1)
+                    .enqueue(new Callback<List<Product>>() {
+
+                        @Override
+                        public void onResponse(
+                                Call<List<Product>> call,
+                                Response<List<Product>> response) {
+
+                            if (response.isSuccessful()
+                                    && response.body() != null) {
+
+                                products.clear();
+                                products.addAll(response.body());
+
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(
+                                Call<List<Product>> call,
+                                Throwable t) {
+                            Toast.makeText(requireContext(), t+"", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
     }
 }
