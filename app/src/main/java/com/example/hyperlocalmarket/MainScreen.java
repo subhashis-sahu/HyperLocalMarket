@@ -52,6 +52,10 @@ public class MainScreen extends AppCompatActivity {
                 openFragment(new HomeFragment());
 
             }
+            else if (id == R.id.nav_search){
+                openFragment(new SearchFragment());
+
+            }
 
             else if (id == R.id.nav_sell) {
 

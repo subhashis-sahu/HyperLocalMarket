@@ -1,5 +1,6 @@
 package com.example.hyperlocalmarket;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,7 +30,9 @@ public class activity_profile extends AppCompatActivity {
 
 
 
-    TextView tvUserPhone,btnLogout;
+    TextView tvUserPhone,btnLogout,btnHelp;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class activity_profile extends AppCompatActivity {
         });
 
         btnBack=findViewById(R.id.btnBack);
+        btnHelp=findViewById(R.id.btnHelp);
+
 
         tvUserPhone=findViewById(R.id.tvUserPhone);
 
@@ -73,11 +78,37 @@ public class activity_profile extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preferences.edit().clear().apply();
-                Intent intent=new Intent(activity_profile.this,RegisterActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
+                Dialog dialog=new Dialog(activity_profile.this);
+                dialog.setContentView(R.layout.logout_dialouge);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.show();
+
+                TextView Dyes=dialog.findViewById(R.id.tvYes);
+                TextView Dno=dialog.findViewById(R.id.tvNo);
+                Dyes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        preferences.edit().clear().apply();
+                        Intent intent=new Intent(activity_profile.this,RegisterActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        dialog.dismiss();
+                        finish();
+
+
+                    }
+                });
+                Dno.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+
+
+
             }
         });
 
@@ -86,6 +117,33 @@ public class activity_profile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(activity_profile.this, MainScreen.class);
                 startActivity(intent);
+            }
+        });
+
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog=new Dialog(activity_profile.this);
+                dialog.setContentView(R.layout.help_dialouge);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.show();
+
+                Button cancle=dialog.findViewById(R.id.btnCancle);
+                Button help=dialog.findViewById(R.id.btnwrietUs);
+                cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                help.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+
+                    }
+                });
             }
         });
 

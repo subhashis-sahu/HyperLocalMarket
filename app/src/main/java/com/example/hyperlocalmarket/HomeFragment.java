@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment {
     boolean isHeaderHidden = false;
 
     LinearLayout layHeader;
-    TextView sellAll,tvCategoryTitle,tvGreeting;
+    TextView sellAll, tvCategoryTitle, tvGreeting;
 
     Spinner spinner;
     Button btnPostItem;
@@ -74,21 +74,18 @@ public class HomeFragment extends Fragment {
     ImageView imageView;
 
     ScrollView mainContent;
-    View bottomNav,productDetails;
+    View bottomNav, productDetails;
 
-    RecyclerView rvProducts,recyclerProducts;
+    RecyclerView rvProducts, recyclerProducts;
 
-    List<String> categoryList= Arrays.asList("Real Estate","Furniture","Cars","Bikes");
+    List<String> categoryList = Arrays.asList("Real Estate", "Furniture", "Cars", "Bikes");
 
-    ArrayList<Product> productsList,categoryWiseProduct;
+    ArrayList<Product> productsList, categoryWiseProduct;
     ProductAdapter productAdapter;
     //for Category
     CategoryProductAdaptor categoryProductAdaptor;
 
     FusedLocationProviderClient fusedLocationProviderClient;
-
-
-
 
 
     @Nullable
@@ -114,38 +111,33 @@ public class HomeFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        etSearch=view.findViewById(R.id.etSearch);
+        etSearch = view.findViewById(R.id.etSearch);
 
-        categoryWiseProduct=new ArrayList<>();
-
+        categoryWiseProduct = new ArrayList<>();
 
 
         //Category Title
-        tvCategoryTitle=view.findViewById(R.id.tvCategoryTitle);
+        tvCategoryTitle = view.findViewById(R.id.tvCategoryTitle);
 
 
-
-        rvProducts=view.findViewById(R.id.rvProducts);
+        rvProducts = view.findViewById(R.id.rvProducts);
 
         //for Category
-        recyclerProducts=view.findViewById(R.id.recyclerProducts);
+        recyclerProducts = view.findViewById(R.id.recyclerProducts);
 
 
+        productsList = new ArrayList<>();
+        productAdapter = new ProductAdapter(productsList);
 
-        productsList=new ArrayList<>();
-        productAdapter=new ProductAdapter(productsList);
 
-
-        productDetails=view.findViewById(R.id.productDetails);
+        productDetails = view.findViewById(R.id.productDetails);
         productDetails.setVisibility(View.GONE);
 
-        rvProducts.setLayoutManager(new GridLayoutManager(requireContext(),2));
+        rvProducts.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvProducts.setAdapter(productAdapter);
 
 
         loadContent();
-
-
 
 
         mainContent = view.findViewById(R.id.mainContent);
@@ -153,7 +145,7 @@ public class HomeFragment extends Fragment {
         spinner = view.findViewById(R.id.spinnerLocation);
 
         imageView = view.findViewById(R.id.imgAvatar);
-        sellAll=view.findViewById(R.id.sellAll);
+        sellAll = view.findViewById(R.id.sellAll);
 
         cars = view.findViewById(R.id.cars);
         bikes = view.findViewById(R.id.bikes);
@@ -161,7 +153,7 @@ public class HomeFragment extends Fragment {
         realEstate = view.findViewById(R.id.realEstate);
 
         cardTrending1 = view.findViewById(R.id.cardTrending1);
-        btnPostItem =view.findViewById(R.id.btnPostItem);
+        btnPostItem = view.findViewById(R.id.btnPostItem);
 
         bottomNav = requireActivity().findViewById(R.id.bottomNavigationView);
         realEstate.setTag(1L);
@@ -169,35 +161,27 @@ public class HomeFragment extends Fragment {
         cars.setTag(3L);
         bikes.setTag(4L);
 
-        categoryProductAdaptor=new CategoryProductAdaptor(categoryWiseProduct);
-        recyclerProducts.setLayoutManager(new GridLayoutManager(getContext(),2));
+        categoryProductAdaptor = new CategoryProductAdaptor(categoryWiseProduct);
+        recyclerProducts.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerProducts.setAdapter(categoryProductAdaptor);
-        tvGreeting=view.findViewById(R.id.tvGreeting);
+        tvGreeting = view.findViewById(R.id.tvGreeting);
 
 
+        SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("auth", MODE_PRIVATE);
+        String token = sharedPreferences.getString("jwt", null);
+        ApiService apiService = RetrofitClient.getApiService();
 
-
-
-
-
-
-
-
-        SharedPreferences sharedPreferences=view.getContext().getSharedPreferences("auth",MODE_PRIVATE);
-        String token = sharedPreferences.getString("jwt",null);
-        ApiService apiService=RetrofitClient.getApiService();
-
-        apiService.getProfile("Bearer "+token).enqueue(new Callback<Profile>() {
+        apiService.getProfile("Bearer " + token).enqueue(new Callback<Profile>() {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
-                if (response.isSuccessful()){
-                    Profile pf=response.body();
+                if (response.isSuccessful()) {
+                    Profile pf = response.body();
 
-                    if (pf.getName()!=null){
-                        String name=pf.getName();
-                        tvGreeting.setText("Hello, "+name+" \uD83D\uDC4B");
+                    if (pf.getName() != null) {
+                        String name = pf.getName();
+                        tvGreeting.setText("Hello, " + name + " \uD83D\uDC4B");
                     } else {
-                        tvGreeting.setText("Hello, "+pf.getPhNumber()+" \uD83D\uDC4B");
+                        tvGreeting.setText("Hello, " + pf.getPhNumber() + " \uD83D\uDC4B");
 
                     }
 
@@ -214,9 +198,9 @@ public class HomeFragment extends Fragment {
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i== EditorInfo.IME_ACTION_SEARCH){
-                    String prompt=etSearch.getText().toString().trim();
-                    if (!prompt.isEmpty()){
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
+                    String prompt = etSearch.getText().toString().trim();
+                    if (!prompt.isEmpty()) {
                         searchProducts(prompt);
                     }
                     return true;
@@ -227,29 +211,15 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
-
-
         sellAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new CategoryFragment()).addToBackStack(null).commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new CategoryFragment()).addToBackStack(null).commit();
 
             }
         });
 
-
-
-
-
-
-
-
-
-        // --------------------------------------------------
         // CATEGORY CLICK
-        // --------------------------------------------------
 
         cars.setOnClickListener(v ->
 
@@ -281,8 +251,6 @@ public class HomeFragment extends Fragment {
 
             startActivity(intent);
         });
-
-
 
 
         // --------------------------------------------------
@@ -375,7 +343,7 @@ public class HomeFragment extends Fragment {
                 furniture,
                 realEstate
         };
-        Bundle bundle=new Bundle();
+        Bundle bundle = new Bundle();
 
 
         for (LinearLayout view : categories) {
@@ -386,19 +354,15 @@ public class HomeFragment extends Fragment {
             );
 
         }
-        TextView textView=(TextView)select.getChildAt(1);
-        String text=textView.getText().toString();
+        TextView textView = (TextView) select.getChildAt(1);
+        String text = textView.getText().toString();
         tvCategoryTitle.setText(text);
-        ApiService apiService=RetrofitClient.getApiService();
+        ApiService apiService = RetrofitClient.getApiService();
         Long categoryId = (Long) select.getTag();
 
         //for category
 
-
-
-
-
-        if (productDetails.getVisibility()==View.GONE){
+        if (productDetails.getVisibility() == View.GONE) {
             productDetails.setVisibility(View.VISIBLE);
 
         }
@@ -407,10 +371,8 @@ public class HomeFragment extends Fragment {
         select.setBackgroundResource(
                 R.drawable.category_chip_selected
         );
-        getClicked(apiService,categoryId);
+        getClicked(apiService, categoryId);
     }
-
-
 
 
     // ======================================================
@@ -530,11 +492,7 @@ public class HomeFragment extends Fragment {
 
         try {
 
-            Geocoder geocoder =
-                    new Geocoder(
-                            requireContext(),
-                            Locale.getDefault()
-                    );
+            Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
 
 
             List<Address> addresses =
@@ -545,15 +503,13 @@ public class HomeFragment extends Fragment {
                     );
 
 
-            String place =
-                    "Unknown Location";
+            String place = "Unknown Location";
 
 
             if (addresses != null &&
                     !addresses.isEmpty()) {
 
-                Address address =
-                        addresses.get(0);
+                Address address = addresses.get(0);
 
 
                 if (address.getSubLocality() != null) {
@@ -564,8 +520,7 @@ public class HomeFragment extends Fragment {
                 } else if (
                         address.getLocality() != null) {
 
-                    place =
-                            address.getLocality();
+                    place = address.getLocality();
 
                 } else if (
                         address.getSubAdminArea() != null) {
@@ -582,9 +537,7 @@ public class HomeFragment extends Fragment {
             }
 
 
-            String[] locations = {
-                    place
-            };
+            String[] locations = {place};
 
 
             ArrayAdapter<String> adapter =
@@ -677,18 +630,17 @@ public class HomeFragment extends Fragment {
         checkLocationEnabled();
     }
 
-    public void loadContent(){
-        ApiService apiService= RetrofitClient.getApiService();
+    public void loadContent() {
+        ApiService apiService = RetrofitClient.getApiService();
         apiService.getProducts().enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.isSuccessful() && response.body()!=null){
+                if (response.isSuccessful() && response.body() != null) {
                     productsList.clear();
                     productsList.addAll(response.body());
                     productAdapter.notifyDataSetChanged();
 
-                }
-                else {
+                } else {
                     Log.e("PRODUCT_API", "Error: " + response.code());
                 }
             }
@@ -700,11 +652,12 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-    void getClicked(ApiService apiService,Long idx){
+
+    void getClicked(ApiService apiService, Long idx) {
         apiService.getProductsByCategory(idx).enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.isSuccessful() && response.body()!=null){
+                if (response.isSuccessful() && response.body() != null) {
                     categoryWiseProduct.clear();
                     categoryWiseProduct.addAll(response.body());
                     categoryProductAdaptor.notifyDataSetChanged();
@@ -715,23 +668,23 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(requireContext(), "Error"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Error" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
     }
 
-    void searchProducts(String prompt){
-        SearchFragment searchFragment=new SearchFragment();
+    void searchProducts(String prompt) {
+        SearchFragment searchFragment = new SearchFragment();
 
 
-                    Bundle bundle=new Bundle();
-                    bundle.putString("prompt",prompt);
-                    searchFragment.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentContainer,searchFragment)
-                            .addToBackStack(null).commit();
-                }
+        Bundle bundle = new Bundle();
+        bundle.putString("prompt", prompt);
+        searchFragment.setArguments(bundle);
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, searchFragment)
+                .addToBackStack(null).commit();
+    }
 
 }

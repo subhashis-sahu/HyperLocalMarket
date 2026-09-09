@@ -6,9 +6,12 @@
     <color name="feedColor">#FFE1BA</color>
     <color name="background">#FFF8E7</color>
     <color name="accent">#00B7CD</color>
+    <color name="green">#4CAF50</color>
 
     <color name="text_primary">#222222</color>
     <color name="text_secondary">#666666</color>
     <color name="white">#FFFFFF</color>
+
+
 
 </resources>
