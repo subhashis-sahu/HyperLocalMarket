@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:background="@drawable/dev_box"
+
+    >
+    <TextView
+        android:textColor="@color/primary"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Have a question?"
+
+        android:fontFamily="@font/poppins_black"
+
+        />
+    <TextView
+        android:textColor="@color/text_primary"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="We’d love to hear from you. \nReach out to us at "
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_black"
+
+        />
+    <TextView
+        android:textColor="@color/accent"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="support@example.com"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_black"
+
+        />
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <Button
+
+            android:textColor="@color/background"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:id="@+id/btnwrietUs"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Write Us"
+            android:fontFamily="@font/poppins_black"
+            android:background="@drawable/touch_ripple"/>
+    </LinearLayout>
+
+
+</LinearLayout>

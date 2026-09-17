@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/shareListing"
+        android:title="Share"
+
+        android:icon="@drawable/report_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        android:iconTint="@color/primary" />
+
+    <item
+        android:id="@+id/saveListing"
+        android:title="Save Listing"
+        android:icon="@drawable/report_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        android:iconTint="@color/primary" />
+
+    <item
+        android:id="@+id/copyLink"
+        android:title="Copy Link"
+        android:icon="@drawable/report_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        android:iconTint="@color/primary" />
+
+    <item
+        android:id="@+id/notInterested"
+        android:title="Not Interested"
+        android:icon="@drawable/report_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        android:iconTint="@color/primary" />
+
+    <item
+        android:id="@+id/reportListing"
+        android:title="Report Listing"
+        android:icon="@drawable/report_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        android:iconTint="@color/primary" />
+
+    <item
+        android:id="@+id/reportSpam"
+        android:title="Report Spam"
+        android:icon="@drawable/report_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        android:iconTint="@color/primary" />
+
+    <item
+        android:id="@+id/blockUser"
+        android:title="Block User"
+        android:icon="@drawable/report_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        android:iconTint="@color/primary" />
+
+</menu>
