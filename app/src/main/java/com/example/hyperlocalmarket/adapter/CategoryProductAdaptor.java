@@ -1,5 +1,6 @@
 package com.example.hyperlocalmarket.adapter;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hyperlocalmarket.R;
+import com.example.hyperlocalmarket.items_screen;
 import com.example.hyperlocalmarket.model.Product;
 import com.example.hyperlocalmarket.viewholder.CategoryProductViewHolder;
 import com.example.hyperlocalmarket.viewholder.ProductViewHolder;
@@ -43,6 +45,12 @@ public class CategoryProductAdaptor extends RecyclerView.Adapter<CategoryProduct
 
         holder.ipProductName.setText(product.getTitle());
         holder.ipProductPrice.setText("₹" + product.getPrice());
+        holder.itemView.setOnClickListener(v->{
+            Long productId=product.getId();
+            Intent intent=new Intent(v.getContext(), items_screen.class);
+            intent.putExtra("productId",productId);
+            v.getContext().startActivity(intent);
+        });
 
     }
 

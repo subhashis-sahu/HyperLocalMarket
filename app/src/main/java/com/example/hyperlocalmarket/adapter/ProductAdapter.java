@@ -1,13 +1,16 @@
 package com.example.hyperlocalmarket.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hyperlocalmarket.R;
+import com.example.hyperlocalmarket.items_screen;
 import com.example.hyperlocalmarket.model.Product;
 import com.example.hyperlocalmarket.viewholder.ProductViewHolder;
 
@@ -34,6 +37,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
         holder.productTitle.setText(product.getTitle());
         holder.productPrice.setText("₹"+product.getPrice());
         holder.productLocation.setText(product.getLocation());
+        holder.itemView.setOnClickListener(v->{
+            Long productId=product.getId();
+            Intent intent=new Intent(v.getContext(), items_screen.class);
+            intent.putExtra("productId",productId);
+            v.getContext().startActivity(intent);
+        });
 
 
 

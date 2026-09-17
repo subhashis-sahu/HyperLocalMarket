@@ -8,6 +8,7 @@ import com.example.hyperlocalmarket.model.MessageResponse;
 import com.example.hyperlocalmarket.model.OtpRequest;
 
 import com.example.hyperlocalmarket.model.Product;
+import com.example.hyperlocalmarket.model.ProductInfo;
 import com.example.hyperlocalmarket.model.Profile;
 import com.example.hyperlocalmarket.model.VerifyOtpRequest;
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
@@ -59,4 +60,7 @@ public interface ApiService {
 
     @GET("api/public/products/search")
     Call<List<Product>> searchProduct(@Query("prompt") String promt);
+
+    @GET("api/public/product/{id}")
+    Call<ProductInfo> getProduct(@Path("id") Long id);
 }
