@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <LinearLayout
+        android:id="@+id/chatHeader"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:background="@android:color/white"
+        android:elevation="3dp">
+
+        <!-- Back -->
+
+        <ImageView
+
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:background="@drawable/arrow_back_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+            android:scaleType="centerInside"
+            android:backgroundTint="@color/black"
+            android:contentDescription="Back"/>
+
+
+        <!-- Seller Image -->
+
+        <ImageView
+            android:id="@+id/sellerImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/user"
+
+            android:scaleType="centerCrop"
+            android:contentDescription="Seller"/>
+
+
+        <!-- Seller Name -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/msName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rahul"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/msStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Online"
+                android:textColor="#777777"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+
+        <!-- More -->
+
+        <ImageView
+            android:id="@+id/moreButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:background="@drawable/more_vert_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+            android:backgroundTint="@color/black"
+
+            android:contentDescription="More"/>
+
+    </LinearLayout>
+
+
+    <!-- ================= PRODUCT INFO ================= -->
+
+    <LinearLayout
+        android:id="@+id/productInfo"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@id/chatHeader"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="14dp"
+        android:background="@android:color/white">
+
+
+        <ImageView
+            android:id="@+id/mPImage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mPTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pulsar RS200"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/mPPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="₹75,000"
+                android:textColor="@color/primary"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/viewProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+
+
+    <!-- ================= MESSAGES ================= -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messagesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/productInfo"
+        android:layout_above="@id/messageInputLayout"
+        android:padding="12dp"
+        android:clipToPadding="false"/>
+
+
+    <!-- ================= MESSAGE INPUT ================= -->
+
+    <LinearLayout
+        android:id="@+id/messageInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp"
+        android:background="@android:color/white"
+        android:elevation="8dp">
+
+
+        <!-- Message Box -->
+
+        <EditText
+            android:id="@+id/messageInput"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:background="#F1F1F1"
+            android:hint="Type a message..."
+            android:paddingHorizontal="16dp"
+            android:textSize="15sp"
+            android:maxLines="4"
+            android:inputType="textCapSentences|textMultiLine"/>
+
+
+        <!-- Send -->
+
+        <ImageView
+            android:id="@+id/sendButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+
+            android:contentDescription="Send"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
