@@ -12,6 +12,9 @@
     <color name="text_secondary">#666666</color>
     <color name="white">#FFFFFF</color>
 
+    <color name="spinner_text">#000000</color>
+    <color name="spinner_background">#FFFFFF</color>
+
 
 
 </resources>

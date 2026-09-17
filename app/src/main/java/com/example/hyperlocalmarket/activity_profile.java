@@ -1,13 +1,17 @@
 package com.example.hyperlocalmarket;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class activity_profile extends AppCompatActivity {
-    ImageView btnBack;
+    ImageView btnBack,btnMore;
 
 
 
@@ -52,6 +56,26 @@ public class activity_profile extends AppCompatActivity {
         tvUserPhone=findViewById(R.id.tvUserPhone);
 
         btnLogout=findViewById(R.id.btnLogout);
+        btnMore=findViewById(R.id.btnMore);
+        Context wrapper=new ContextThemeWrapper(activity_profile.this,R.style.CustomPopUpMenu);
+
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu=new PopupMenu(wrapper,btnMore);
+                popupMenu.getMenuInflater().inflate(R.menu.three_dot_menu,popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(item->{
+                    int id=item.getItemId();
+                    if (id== R.id.reportSpam){
+                        return true;
+                    }
+                    return false;
+                });
+                popupMenu.show();
+            }
+        });
+
+
 
 
         SharedPreferences preferences=getSharedPreferences("auth",MODE_PRIVATE);
@@ -128,14 +152,9 @@ public class activity_profile extends AppCompatActivity {
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialog.show();
 
-                Button cancle=dialog.findViewById(R.id.btnCancle);
+
                 Button help=dialog.findViewById(R.id.btnwrietUs);
-                cancle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
+
 
                 help.setOnClickListener(new View.OnClickListener() {
                     @Override

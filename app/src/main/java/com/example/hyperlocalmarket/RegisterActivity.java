@@ -1,14 +1,17 @@
 package com.example.hyperlocalmarket;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.hyperlocalmarket.api.ApiService;
 import com.example.hyperlocalmarket.api.RetrofitClient;
@@ -37,11 +40,15 @@ public class RegisterActivity extends AppCompatActivity {
         etOtp = findViewById(R.id.etOtp);
         btnLogin = findViewById(R.id.btnLogin);
 
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.background));
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(etPhoneNumber.getWindowToken(), 0);
                 String number =
                         etPhoneNumber.getText()
                                 .toString()
@@ -92,11 +99,20 @@ public class RegisterActivity extends AppCompatActivity {
                                         // Change button text
                                         btnLogin.setText("Verify OTP");
 
+                                        etPhoneNumber.setTextColor(
+                                                getColor( R.color.text_secondary)
+                                        );
+
+                                        etPhoneNumber.setHintTextColor(
+                                                getColor(R.color.text_secondary)
+                                        );
+
                                         // Don't allow phone number
                                         // to be changed now
                                         etPhoneNumber.setEnabled(false);
 
-                                    }else {
+
+                                    } else {
                                         try {
                                             String error = response.errorBody() != null
                                                     ? response.errorBody().string()

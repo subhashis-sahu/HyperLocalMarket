@@ -72,7 +72,10 @@
                     app:tint="@android:color/black"
                     android:layout_marginStart="4dp"
                     android:padding="8dp"
+                    android:background="@drawable/touch_ripple"
+
                     />
+
             </LinearLayout>
 
             <!-- User name + phone -->
